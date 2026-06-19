@@ -41,8 +41,9 @@ module present_ctr (
   ) adder_inst (
       .a(IV),
       .b(block_number),
-      .s(text),
-      .c()
+      .cin(0),
+      .sum(text),
+      .cout()
   );
 
 
