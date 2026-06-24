@@ -18,7 +18,7 @@ import present
 import cocotb
 from cocotb.clock import Clock
 from cocotb.regression import TestFactory
-from cocotb.result import ReturnValue, TestFailure
+from cocotb.result import TestFailure
 from cocotb.triggers import FallingEdge, RisingEdge, Timer
 
 home = os.getenv("HOME")
