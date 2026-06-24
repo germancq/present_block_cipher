@@ -62,7 +62,7 @@ async def generate_round_keys(dut):
     print("generate_round_keys")
     dut.rst.value = 0
     i = 0
-    while dut.end_key_generation.value.value == 0:
+    while dut.end_key_generation.value == 0:
         i = i + 1
         await n_cycles_clock(dut, 1)
 
@@ -71,7 +71,7 @@ async def generate_round_keys(dut):
 
     if dut.end_key_generation.value != 1:
         assert """Error generate_round_keys,wrong end_signal value = {0}, expected value is {1}""".format(
-            hex(int(dut.end_key_generation.value.value)), 1
+            hex(int(dut.end_key_generation.value)), 1
         )
 
 
@@ -89,15 +89,15 @@ async def enc_dec_test(dut, num_block, text, IV, key):
 
     expected_value = present_SW.encryption_decryption(text, num_block)
 
-    while dut.end_signal.value.value == 0:
+    while dut.end_signal.value == 0:
         """
         print('//////////////////////////')
-        print(int(dut.key_index_enc.value.value))
+        print(int(dut.key_index_enc.value))
         print(int(dut.present_enc_impl.value.key_index.value))
 
-        print(hex(int(dut.roundkey.value.value)))
+        print(hex(int(dut.roundkey.value)))
         print(hex(int(dut.present_enc_impl.value.roundkey.value)))
-        print(hex(int(present_SW.round_keys[int(dut.key_index_enc.value.value)])))
+        print(hex(int(present_SW.round_keys[int(dut.key_index_enc.value)])))
 
         print(hex(int(dut.present_enc_impl.value.block_i.value)))
         print(hex(int(dut.present_enc_impl.value.block_o.value)))
@@ -112,13 +112,13 @@ async def enc_dec_test(dut, num_block, text, IV, key):
 
     await n_cycles_clock(dut, 100)
     print("*************************")
-    print(hex(int(dut.block_o.value.value)))
+    print(hex(int(dut.block_o.value)))
     print(hex(text))
     print(hex(expected_value))
     print("*************************")
     if dut.block_o.value != expected_value:
         assert """Error enc_dec_test,wrong value = {0}, expected value is {1}""".format(
-            hex(int(dut.block_o.value.value)), hex(expected_value)
+            hex(int(dut.block_o.value)), hex(expected_value)
         )
 
 
