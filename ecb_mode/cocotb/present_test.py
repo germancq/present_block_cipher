@@ -18,7 +18,6 @@ import present
 import cocotb
 from cocotb.clock import Clock
 from cocotb.regression import TestFactory
-from cocotb.result import TestFailure
 from cocotb.triggers import FallingEdge, RisingEdge, Timer
 
 home = os.getenv("HOME")
@@ -68,10 +67,8 @@ async def generate_round_keys(dut):
     # await n_cycles_clock(dut,1)
 
     if dut.end_key_generation != 1:
-        raise TestFailure(
-            """Error generate_round_keys,wrong end_signal value = {0}, expected value is {1}""".format(
-                hex(int(dut.end_key_generation.value)), 1
-            )
+        assert """Error generate_round_keys,wrong end_signal value = {0}, expected value is {1}""".format(
+            hex(int(dut.end_key_generation.value)), 1
         )
 
 
@@ -101,10 +98,8 @@ async def enc_test(dut, expected_enc_value):
     print(hex(int(dut.block_o.value)))
     print(hex(int(expected_enc_value)))
     if dut.block_o != expected_enc_value:
-        raise TestFailure(
-            """Error enc_test,wrong value = {0}, expected value is {1}""".format(
-                hex(int(dut.block_o.value)), hex(expected_enc_value)
-            )
+        assert """Error enc_test,wrong value = {0}, expected value is {1}""".format(
+            hex(int(dut.block_o.value)), hex(expected_enc_value)
         )
 
 
@@ -132,10 +127,8 @@ async def dec_test(dut, expected_dec_value):
     print(hex(int(dut.block_o.value)))
     print(hex(int(expected_dec_value)))
     if dut.block_o != expected_dec_value:
-        raise TestFailure(
-            """Error dec_test,wrong value = {0}, expected value is {1}""".format(
-                hex(int(dut.block_o.value)), hex(expected_dec_value)
-            )
+        assert """Error dec_test,wrong value = {0}, expected value is {1}""".format(
+            hex(int(dut.block_o.value)), hex(expected_dec_value)
         )
 
 
