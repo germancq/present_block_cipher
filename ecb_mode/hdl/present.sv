@@ -276,7 +276,7 @@ module present_key_schedule (
       .DATA_WIDTH(64)
   ) memory_impl (
       .clk (clk),
-      .r_w (r_w),
+      .we  (r_w),
       .addr(mem_addr),
       .din (key_register_output[79:16]),
       .dout(roundkey)
