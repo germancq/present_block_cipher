@@ -43,7 +43,7 @@ BLOCK_LEN = 64
 
 
 def setup_function(dut, key, IV, block_i, num_block):
-    cocotb.fork(Clock(dut.clk, CLK_PERIOD).start())
+    cocotb.start_soon(Clock(dut.clk, CLK_PERIOD, unit="ns").start())
     dut.rst.value = 0
     dut.key.value = key
     dut.IV.value = IV
@@ -72,10 +72,8 @@ async def generate_round_keys(dut):
     # await n_cycles_clock(dut,1)
 
     if dut.end_key_generation.value != 1:
-        raise TestFailure(
-            """Error generate_round_keys,wrong end_signal value = {0}, expected value is {1}""".format(
-                hex(int(dut.end_key_generation.value.value)), 1
-            )
+        assert """Error generate_round_keys,wrong end_signal value = {0}, expected value is {1}""".format(
+            hex(int(dut.end_key_generation.value.value)), 1
         )
 
 
@@ -121,10 +119,8 @@ async def enc_dec_test(dut, num_block, text, IV, key):
     print(hex(expected_value))
     print("*************************")
     if dut.block_o.value != expected_value:
-        raise TestFailure(
-            """Error enc_dec_test,wrong value = {0}, expected value is {1}""".format(
-                hex(int(dut.block_o.value.value)), hex(expected_value)
-            )
+        assert """Error enc_dec_test,wrong value = {0}, expected value is {1}""".format(
+            hex(int(dut.block_o.value.value)), hex(expected_value)
         )
 
 
