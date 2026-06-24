@@ -12,13 +12,11 @@ import random
 import sys
 import time
 
+import cocotb
 import numpy as np
 import present_ctr
-
-import cocotb
 from cocotb.clock import Clock
 from cocotb.regression import TestFactory
-from cocotb.result import ReturnValue, TestFailure
 from cocotb.triggers import FallingEdge, RisingEdge, Timer
 
 home = os.getenv("HOME")
